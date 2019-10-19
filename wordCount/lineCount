@@ -1,0 +1,86 @@
+#include<stdio.h>
+#include<fstream>
+
+int main()
+{
+	//ͷ�ļ�����Ķ��� 
+class testfile
+{
+public:
+    testfile countcha(char *, testfile);//�����ַ���
+    testfile countword(char *, testfile);//���㵥����
+    testfile countline(char *, testfile);//��������
+    int getcharacters();
+    int getlines();
+    int getwords();
+    char *content;//����ı��ļ����� 
+    void init();
+private:
+    int characters;
+    int words;
+    int lines;
+
+};
+
+void testfile::init()
+{
+    characters = 0;
+    words = 0;
+    lines = 0;
+    content = (char*)malloc(sizeof(char*)*MAXN);
+}
+
+
+	//ͳ���ı��ļ����ַ����Լ����� 
+testfile testfile::countcha(char *t, testfile f1)
+{
+    int i = 0;
+    ifstream myfile;
+    myfile.open(t);
+    if (!myfile.is_open())
+    {
+        cout << "�ļ���ʧ��" << endl;
+    }
+    char c;
+    myfile >> noskipws;//ǿ�ƶ���ո�ͻ��з�
+    while (!myfile.eof())
+    {
+        myfile >> c;
+        if (myfile.eof())
+            break;//��ֹ���һ���ַ��������
+        i++;
+    }
+    f1.characters = i;
+    myfile.close();
+    return f1;
+}
+
+testfile testfile::countline(char *t, testfile f1)
+{
+    ifstream myfile;
+    myfile.open(t, ios::in);
+    int i = 0;
+    string temp;//��Ϊgetline����ʹ��
+    if (!myfile.is_open())
+    {
+        cout << "�ļ���ʧ��" << endl;
+    }
+    while (getline(myfile, temp))
+    {
+        if(temp.empty()) continue;
+        i++;
+    }
+    f1.lines = i;
+    myfile.close();
+    return f1;
+}
+
+	
+}
+
+
+
+
+
+
+
