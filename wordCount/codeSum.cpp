@@ -9,9 +9,13 @@ int sum_word(string str);
 bool checkA(char c);//¼ì²â×ÖÄ¸ 
 bool checkB(char c);//¼ì²âÊı×Ö 
 int main(){
-	string str = "Monday11 11Tuesday&Wednesday \n Thursday Friday";
+	string str = "Monday11 11Tuesday Wednesday \n Thursday  Friday";
 	int n = sum_word(str);
+	cout<<endl<<endl;
 	cout<<n<<"   "<<str<<endl;
+	for(int i = 0;i < words.size();i++){
+		cout<<words[i].word<<"   "<<words[i].num<<endl;
+	}
 }
 int sum_word(string str){//
 	int sum = 0;
@@ -22,14 +26,18 @@ int sum_word(string str){//
 				for(int j = i + 3;j < str.size();j++){
 					if(str[j] == ' '||str[j] == '\n' || (!checkA(str[i])&&!checkB(str[i])) ){
 						k = j;
+						cout<<"1    "<<k<<endl;
 						break;
 					}
 		        	k = str.size()-1;
 				}
-				string temp;
-				temp = str.substr(i,k);
+				string temp = "";
+				cout<<k<<endl;
+				temp = str.substr(i,k-i+1);
+				cout<<"2    "<<k<<endl;
 				struct word_node temp_node;
 				temp_node.word = temp;
+				cout<<temp<<endl;
 				temp_node.num = 1;
 				words.push_back(temp_node);
 				sum++;
@@ -37,13 +45,11 @@ int sum_word(string str){//
 			}
 		}else if(checkB(str[i])){
 			for(int j = i;j<str.size();j++){
-				if(j ==18) cout<<str[j]<<endl;
-				if(str[j] == ' '||str[j] == '\n' || (!checkA(str[j])&&!checkB(str[j])) ){
+				if(str[j] == ' '||str[j] == '\n'){
 					k = j;
 					break;
 					
 				}
-				k = str.size()-1;
 			}
 			i = k;
 		}
